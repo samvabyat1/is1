@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "989831606060",
+    "project_id": "stockplace-is",
+    "storage_bucket": "stockplace-is.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:989831606060:android:5576c7a78416d130608689",
+        "android_client_info": {
+          "package_name": "com.samvabya.is1"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "989831606060-cdntm3cfbca4n22d76ptc4kfpqveda7u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDYDcj36Gq_L5K_1qvJr-XEitb5TRJjuUI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "989831606060-cdntm3cfbca4n22d76ptc4kfpqveda7u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
