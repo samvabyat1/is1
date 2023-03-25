@@ -5,13 +5,28 @@ import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:is1/home.dart';
 import 'package:is1/login.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:uni_links/uni_links.dart';
+
+import 'onbuy.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+
+  Future<Null> initUniLinks() async {
+    try {
+      Uri? initialLink = await getInitialUri();
+      print(initialLink);
+    } on PlatformException {
+      print('platfrom exception unilink');
+    }
+  }
+
+  initUniLinks();
 
   WidgetsFlutterBinding.ensureInitialized();
   runApp(MaterialApp(

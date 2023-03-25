@@ -5,7 +5,6 @@ import 'dart:ui';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:is1/settings.dart';
 import 'account.dart';
 import 'marketplace.dart';
 
@@ -32,7 +31,10 @@ class _HomeState extends State<Home> {
         if (child.key != 'date') {
           int price = int.parse(child.child('price').value.toString());
 
-          int newprice = price + random(-5, 6);
+          int newprice = price + random(-3, 6);
+          if (newprice <= 0) {
+            newprice = price;
+          }
 
           ref.child(child.key.toString()).child('price').set(newprice);
           ref.child(child.key.toString()).child('train').set(
@@ -94,11 +96,7 @@ class _HomeState extends State<Home> {
                                   ),
                                   IconButton(
                                     tooltip: 'Settings',
-                                    onPressed: () => Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) => Settings(),
-                                        )),
+                                    onPressed: () {},
                                     icon: Icon(
                                       Icons.settings_outlined,
                                       color: Color(0xff6247AA),
@@ -145,7 +143,16 @@ class _HomeState extends State<Home> {
                   height: 25,
                 ),
                 //MIDSCREEN
-
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 25),
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        
+                      ],
+                    ),
+                  ),
+                ),
                 SizedBox(
                   height: 25,
                 ),
@@ -180,7 +187,11 @@ class _HomeState extends State<Home> {
                               ),
                               IconButton(
                                 tooltip: 'Account',
-                                onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => Account(),)) ,
+                                onPressed: () => Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => Account(),
+                                    )),
                                 icon: Icon(Icons.person_outline),
                               ),
                             ],

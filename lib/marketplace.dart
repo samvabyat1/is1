@@ -6,6 +6,9 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import 'account.dart';
+import 'onbuy.dart';
+
 class Marketplace extends StatefulWidget {
   const Marketplace({super.key});
 
@@ -20,7 +23,8 @@ class _MarketplaceState extends State<Marketplace> {
     {'name': '', 'price': '0', 'train': ''}
   ];
   Future<void> initiate() async {
-    DatabaseReference ref = FirebaseDatabase.instance.ref().child('market');
+    final ref =
+        FirebaseDatabase.instance.ref().child('market').orderByChild('name');
 
     ref.onValue.listen((event) {
       for (final child in event.snapshot.children) {
@@ -74,6 +78,7 @@ class _MarketplaceState extends State<Marketplace> {
                   height: 40,
                 ),
                 TextField(
+                  enabled: false,
                   onTap: () {
                     setState(() {
                       isVisible = false;
@@ -93,6 +98,10 @@ class _MarketplaceState extends State<Marketplace> {
                       borderRadius: BorderRadius.circular(15),
                       borderSide:
                           BorderSide(color: Color(0xff7151a9), width: 3),
+                    ),
+                    disabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(15),
+                      borderSide: BorderSide(color: Colors.grey, width: 3),
                     ),
                   ),
                 ),
@@ -224,6 +233,7 @@ class _BuyState extends State<Buy> {
             child: Column(
               children: [
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
                       '${widget.company['name']}',
@@ -231,6 +241,15 @@ class _BuyState extends State<Buy> {
                         fontSize: 28,
                         color: Color(0xff03045e),
                       ),
+                    ),
+                    IconButton(
+                      tooltip: 'Account',
+                      onPressed: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => Account(),
+                          )),
+                      icon: Icon(Icons.person_rounded),
                     ),
                   ],
                 ),
@@ -392,16 +411,25 @@ class _BuyState extends State<Buy> {
                             ),
                             TextButton(
                                 onPressed: () async {
-                                  final Uri url = Uri.parse(
-                                      'psm://open.com?${widget.company['name'].toString().replaceAll(' ', '_')}+${(slidemark * int.parse(widget.company['price'])).toInt()}');
-                                  if (slidemark > 0.0) {
-                                    try {
-                                      await launchUrl(url);
-                                    } catch (e) {
-                                      Fluttertoast.showToast(
-                                          msg: 'Target app not found');
-                                    }
-                                  }
+                                  // final Uri url = Uri.parse(
+                                  //     'psm://open.com?${widget.company['name'].toString().replaceAll(' ', '_')}+${(slidemark * int.parse(widget.company['price'])).toInt()}');
+                                  // if (slidemark > 0.0) {
+                                  //   try {
+                                  //     await launchUrl(url);
+                                  //   } catch (e) {
+                                  //     Fluttertoast.showToast(
+                                  //         msg: 'Target app not found');
+                                  //   }
+                                  // }
+
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => OnBuy(
+                                          url:
+                                              'psm://open.com?${widget.company['name'].toString().replaceAll(' ', '_')}+${(slidemark * int.parse(widget.company['price'])).toInt()}',
+                                        ),
+                                      ));
                                 },
                                 child: Text(
                                   'BUY',
