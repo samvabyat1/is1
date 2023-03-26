@@ -4,7 +4,11 @@ import 'dart:math';
 import 'dart:ui';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:uni_links/uni_links.dart';
 import 'account.dart';
 import 'marketplace.dart';
 
@@ -16,6 +20,8 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  var frompsm;
+  var wall;
   Future<void> updateStocks() async {
     DatabaseReference ref = FirebaseDatabase.instance.ref().child('market');
 
@@ -52,7 +58,70 @@ class _HomeState extends State<Home> {
   @override
   void initState() {
     super.initState();
+    gets();
     updateStocks();
+    initUniLinks();
+  }
+
+  Future<void> gets() async {
+    final prefs = await SharedPreferences.getInstance();
+    final String? email = prefs.getString('email');
+
+    DatabaseReference ref2 = FirebaseDatabase.instance
+        .ref()
+        .child('users')
+        .child(email.toString().substring(0, email.toString().indexOf('@')));
+
+    ref2.onValue.listen((event) {
+      if (event.snapshot.child('wallet').exists) {
+        if (mounted) {
+          setState(() {
+            wall = int.parse(event.snapshot.child('wallet').value.toString());
+          });
+        }
+      }
+    });
+  }
+
+  Future<Null> initUniLinks() async {
+    try {
+      Uri? initialLink = await getInitialUri();
+      print(initialLink);
+
+      final prefs = await SharedPreferences.getInstance();
+      final String? email = prefs.getString('email');
+
+      DatabaseReference ref2 = FirebaseDatabase.instance
+          .ref()
+          .child('users')
+          .child(email.toString().substring(0, email.toString().indexOf('@')));
+
+      final snapshot = await ref2.child('wallet').get();
+
+      if (initialLink.toString().contains('?')) {
+        frompsm = int.parse(initialLink
+            .toString()
+            .substring(initialLink.toString().indexOf('?') + 1));
+
+        Fluttertoast.showToast(msg: '₹ $frompsm recieved as top up');
+
+        final prefs = await SharedPreferences.getInstance();
+        final String? email = prefs.getString('email');
+
+        DatabaseReference ref2 = FirebaseDatabase.instance
+            .ref()
+            .child('users')
+            .child(
+                email.toString().substring(0, email.toString().indexOf('@')));
+
+        ref2
+            .child('wallet')
+            .set(int.parse(snapshot.value.toString()) + frompsm);
+        Fluttertoast.showToast(msg: 'Top up recieved');
+      }
+    } on PlatformException {
+      print('platfrom exception unilink');
+    }
   }
 
   @override
@@ -147,9 +216,7 @@ class _HomeState extends State<Home> {
                   padding: const EdgeInsets.symmetric(horizontal: 25),
                   child: SingleChildScrollView(
                     child: Column(
-                      children: [
-                        
-                      ],
+                      children: [],
                     ),
                   ),
                 ),

@@ -6,6 +6,8 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'manage.dart';
+
 class Account extends StatefulWidget {
   const Account({super.key});
 
@@ -121,14 +123,16 @@ class _AccountState extends State<Account> {
                         SlidableAction(
                           flex: 2,
                           onPressed: (context) {
-                            Fluttertoast.showToast(
-                                msg:
-                                    'Redeem account balance is currently not available');
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => Manage(),
+                                ));
                           },
                           backgroundColor: Colors.black,
                           foregroundColor: Colors.white,
-                          icon: Icons.redeem_rounded,
-                          label: 'Redeem',
+                          icon: Icons.manage_accounts,
+                          label: 'Manage',
                         ),
                       ],
                     ),

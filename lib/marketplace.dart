@@ -411,16 +411,6 @@ class _BuyState extends State<Buy> {
                             ),
                             TextButton(
                                 onPressed: () async {
-                                  // final Uri url = Uri.parse(
-                                  //     'psm://open.com?${widget.company['name'].toString().replaceAll(' ', '_')}+${(slidemark * int.parse(widget.company['price'])).toInt()}');
-                                  // if (slidemark > 0.0) {
-                                  //   try {
-                                  //     await launchUrl(url);
-                                  //   } catch (e) {
-                                  //     Fluttertoast.showToast(
-                                  //         msg: 'Target app not found');
-                                  //   }
-                                  // }
 
                                   Navigator.push(
                                       context,

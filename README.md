@@ -1,15 +1,32 @@
 
 # IS1
 
-A simple app where you can buy or sell market shares(stocks) using virtual money.
+A simple app that lets you to play with stocks.
+## Screenshots
+
+![App Screenshot](https://i.postimg.cc/yNgvKMMv/Untitled-2.jpg)
+
+![App Screenshot](https://i.postimg.cc/vHKny4Gw/Untitled-1.jpg)
 
 
-## Appendix
+## Documentation
 
-This app will basically use your PSM money.
-That means this is a series with PSM.
+[Install app](https://mega.nz/folder/5R52RCCI#8ZkLzkHwpoIDFC0xX7RhLg)
 
-Through this app I'm working on App To App Data passing.
-## Installation
 
-App is in construction.
+## Tech Stack
+
+**Client:** Flutter, Android
+
+**Server:** Firebase
+
+
+## Support
+
+For support, email samvbyat1@gmail.com.
+
+
+## Authors
+
+- [@samvabyat1](https://github.com/samvabyat1)
+
