@@ -4,7 +4,7 @@
 A simple app that lets you to play with stocks.
 ## Screenshots
 
-![App Screenshot](https://i.postimg.cc/yNgvKMMv/Untitled-2.jpg)
+![App Screenshot](https://i.postimg.cc/pL08jfsG/Untitled-1.jpg)
 
 ![App Screenshot](https://i.postimg.cc/vHKny4Gw/Untitled-1.jpg)
 
